@@ -188,7 +188,12 @@ def face_landmarks(face_image, face_locations=None, model="large"):
             "left_eye": points[36:42],
             "right_eye": points[42:48],
             "top_lip": points[48:55] + [points[64]] + [points[63]] + [points[62]] + [points[61]] + [points[60]],
-            "bottom_lip": points[54:60] + [points[48]] + [points[60]] + [points[67]] + [points[66]] + [points[65]] + [points[64]]
+            "bottom_lip": points[54:60] + [points[48]] + [points[60]] + [points[67]] + [points[66]] + [points[65]] + [points[64]],
+            "nose": points[27:31] + [points[33]],
+            "lips_middle": [points[62]],
+            "cheekbones": [points[0]] + [points[16]],
+            "border": [points[20]] + [points[8]]
+
         } for points in landmarks_as_tuples]
     elif model == 'small':
         return [{
