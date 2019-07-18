@@ -1,9 +1,16 @@
 import math
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
+from PyQt5.QtWidgets import *
+import sys
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QApplication, QPushButton, QWidget, QLabel
+from PyQt5.QtGui import QIcon, QPixmap
+import face_recognition
 import face_recognition
 
 # Image for opening
-nameImage = "C:\\Users\\Nika Kim\\Desktop\\faces\\с красными точкми\\м 1\\7.png"
+nameImage = "C:\\Users\\Nika Kim\\Desktop\\faces\\K.jpg"
 
 
 def find_red_pixel(image_name):
@@ -35,11 +42,10 @@ face_landmarks_list = face_recognition.face_landmarks(image)
 pil_image = Image.fromarray(image)
 
 
-for face_landmarks in face_landmarks_list:
-
+def analys(imageForAnalys):
 
     red_pixels = set()
-    red_pixels = find_red_pixel(nameImage)
+    red_pixels = find_red_pixel(imageForAnalys)
     redPoint = red_pixels.pop()
 
     #find_red_pixel(image)
@@ -283,4 +289,88 @@ for face_landmarks in face_landmarks_list:
     pil_image.show()
 
 
+
+class Widget(QWidget):
+
+    def __init__(self):
+
+        super().__init__()
+
+        self.setWindowTitle('Analyser')
+
+        self.point = None
+
+        hbox = QVBoxLayout(self)
+        pixmap = QPixmap(nameImage)
+
+        self.lbl = QLabel(self)
+        self.lbl.setPixmap(pixmap)
+
+        hbox.addWidget(self.lbl)
+        self.setLayout(hbox)
+
+        btn1 = QPushButton("Готово", self)
+        hbox.addWidget(btn1)
+        btn2 = QPushButton("Очистить", self)
+        hbox.addWidget(btn2)
+
+
+        btn1.clicked.connect(self.button1Clicked)
+        btn2.clicked.connect(self.button2Clicked)
+
+    def paintEvent(self, event):
+        qp = QPainter()
+        qp.begin(self)
+        self.drawText(event, qp)
+        qp.end()
+
+    def drawText(self, event, qp):
+        qp.setPen(QColor(168, 34, 3))
+        qp.setFont(QFont('Decorative', 10))
+        qp.drawText(event.rect(), Qt.AlignCenter, self.text)
+
+    def button1Clicked(self):
+        newName = "C:\\Users\\Nika Kim\\Desktop\\faces\\K.png"
+        self.lbl.pixmap().save(newName, 'png')
+        analys(newName)
+        self.close()
+
+    def button2Clicked(self):
+        pixmap = QPixmap(nameImage)
+        self.lbl.setPixmap(pixmap)
+
+
+    def mousePressEvent(self, event):
+
+        self.point = event.pos()
+
+        # Вызов перерисовки виджета
+        self.update()
+
+
+    def mouseReleaseEvent(self, event):
+
+        self.point = None
+
+
+    def paintEvent(self, event):
+
+        super().paintEvent(event)
+
+        # Если нет
+        if not self.point:
+            return
+
+        painter = QPainter(self.lbl.pixmap())
+        painter.setPen(QPen(Qt.red, 10.0))
+        painter.drawPoint(self.point)
+
+
+
+for face_landmarks in face_landmarks_list:
+
+    app = QApplication(sys.argv)
+    ex = Widget()
+    ex.show()
+    sys.exit(app.exec_())
 
