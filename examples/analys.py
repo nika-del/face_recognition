@@ -10,7 +10,7 @@ import face_recognition
 import face_recognition
 
 # Image for opening
-nameImage = "C:\\Users\\Nika Kim\\Desktop\\faces\\K.jpg"
+nameImage = "C:\\Users\\Nika Kim\\Desktop\\faces\\12345.jpg"
 
 
 def find_red_pixel(image_name):
@@ -41,7 +41,7 @@ face_landmarks_list = face_recognition.face_landmarks(image)
 
 pil_image = Image.fromarray(image)
 
-
+@staticmethod
 def analys(imageForAnalys):
 
     red_pixels = set()
@@ -49,19 +49,19 @@ def analys(imageForAnalys):
     redPoint = red_pixels.pop()
 
     #find_red_pixel(image)
-    print("red: ", len(red_pixels))
+    # print("red: ", len(red_pixels))
 
 
     # Make the eyebrows into a nightmare
 
     var = face_landmarks['right_eye']
 
-    print('left', var)
-    print('right', face_landmarks['right_eye'])
-    print('left', face_landmarks['left_eye'])
-    print('noise', face_landmarks['nose'])
-    print('border', face_landmarks['border'])
-    print('lips middle', face_landmarks['lips_middle'])
+    # print('left', var)
+    # print('right', face_landmarks['right_eye'])
+    # print('left', face_landmarks['left_eye'])
+    # print('noise', face_landmarks['nose'])
+    # print('border', face_landmarks['border'])
+    # print('lips middle', face_landmarks['lips_middle'])
 
     betweenEyes = face_landmarks['right_eye'][0][0] - face_landmarks['left_eye'][3][0]
     leftEyeLength = face_landmarks['left_eye'][3][0] - face_landmarks['left_eye'][0][0]
@@ -74,14 +74,14 @@ def analys(imageForAnalys):
     forehead = meanEyebrowBegining - redPoint[1]
     allFace = face_landmarks['chin'][8][1] - red_pixels.pop()[1]
 
-    print("----------------------------------------------------------------------------\n")
+    # print("----------------------------------------------------------------------------\n")
 
-    print("Length of eyes", betweenEyes)
-    print("Length of left eye", leftEyeLength)
-    print("Length of right eye", rightEyeLength)
-    print("Length of nose", noseLength)
-    print("Length face without forehead", faceLengthWithoutForehead)
-    print("Length from chin to lips", fromChinToLips)
+    # print("Length of eyes", betweenEyes)
+    # print("Length of left eye", leftEyeLength)
+    # print("Length of right eye", rightEyeLength)
+    # print("Length of nose", noseLength)
+    # print("Length face without forehead", faceLengthWithoutForehead)
+    # print("Length from chin to lips", fromChinToLips)
 
     print("----------------------------------------------------------------------------\n")
 
@@ -183,9 +183,7 @@ def analys(imageForAnalys):
     im = Image.open(nameImage)
     (width, height) = im.size
 
-    print(width)
-
-    if(width < 600 or height < 600):
+    if(width < 700 or height < 700):
         lineWidth = 2
         ellipsRad = 1
     elif(width < 1000 or height < 1000):
@@ -330,7 +328,7 @@ class Widget(QWidget):
         qp.drawText(event.rect(), Qt.AlignCenter, self.text)
 
     def button1Clicked(self):
-        newName = "C:\\Users\\Nika Kim\\Desktop\\faces\\K.png"
+        newName = "C:\\Users\\Nika Kim\\Desktop\\faces\\12345.png"
         self.lbl.pixmap().save(newName, 'png')
         analys(newName)
         self.close()

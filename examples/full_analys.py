@@ -9,7 +9,7 @@ from PyQt5.QtGui import QIcon, QPixmap
 import face_recognition
 
 # Image for opening
-nameImage = "C:\\Users\\Nika Kim\\Desktop\\faces\\Без названия.jpg"
+nameImage = "C:\\Users\\Nika Kim\\Desktop\\faces\\K.jpg"
 
 # Load the png file into a numpy array
 image = face_recognition.load_image_file(nameImage)
@@ -51,12 +51,12 @@ def analys(imageForAnalys):
 
     redPoint = red_pixels.pop()
 
-    print('left', face_landmarks['right_eye'])
-    print('right', face_landmarks['right_eye'])
-    print('left', face_landmarks['left_eye'])
-    print('noise', face_landmarks['nose'])
-    print('border', face_landmarks['border'])
-    print('lips middle', face_landmarks['lips_middle'])
+    # print('left', face_landmarks['right_eye'])
+    # print('right', face_landmarks['right_eye'])
+    # print('left', face_landmarks['left_eye'])
+    # print('noise', face_landmarks['nose'])
+    # print('border', face_landmarks['border'])
+    # print('lips middle', face_landmarks['lips_middle'])
 
     # Calculate main items
     betweenEyes = face_landmarks['right_eye'][0][0] - face_landmarks['left_eye'][3][0]
@@ -178,24 +178,24 @@ def analys(imageForAnalys):
 
     #d.line(face_landmarks['right_eye'] + [face_landmarks['right_eye'][0]], fill=(0, 0, 0, 110), width=6)
 
-    print("----------------------------------------------------------------------------\n")
-
-    print("Length of eyes ", betweenEyes)
-    print("Length of left eye ", leftEyeLength)
-    print("Length of right eye ", rightEyeLength)
-    print("Length of nose ", noseLength)
-    print("Length face without forehead ", faceLengthWithoutForehead)
-    print("Length from chin to lips ", fromChinToLips)
-    print("Mean eyebrow begining ", meanEyebrowBegining)
-    print("Length of forehead ", forehead)
-    print("Length of face ", allFace)
-    print("Length of cheekbones  ", cheekbones)
-    print("Pupil ", yPupil)
-
-    print("pui: ", pui)
-    print("puti: ", puti)
-    print("nsi: ", nsi)
-    print("stoi: ", stoi)
+    # print("----------------------------------------------------------------------------\n")
+    #
+    # print("Length of eyes ", betweenEyes)
+    # print("Length of left eye ", leftEyeLength)
+    # print("Length of right eye ", rightEyeLength)
+    # print("Length of nose ", noseLength)
+    # print("Length face without forehead ", faceLengthWithoutForehead)
+    # print("Length from chin to lips ", fromChinToLips)
+    # print("Mean eyebrow begining ", meanEyebrowBegining)
+    # print("Length of forehead ", forehead)
+    # print("Length of face ", allFace)
+    # print("Length of cheekbones  ", cheekbones)
+    # print("Pupil ", yPupil)
+    #
+    # print("pui: ", pui)
+    # print("puti: ", puti)
+    # print("nsi: ", nsi)
+    # print("stoi: ", stoi)
 
     print("----------------------------------------------------------------------------\n")
 
@@ -266,7 +266,6 @@ class Widget(QWidget):
         btn2 = QPushButton("Очистить", self)
         hbox.addWidget(btn2)
 
-
         btn1.clicked.connect(self.button1Clicked)
         btn2.clicked.connect(self.button2Clicked)
 
@@ -282,7 +281,7 @@ class Widget(QWidget):
         qp.drawText(event.rect(), Qt.AlignCenter, self.text)
 
     def button1Clicked(self):
-        newName = "C:\\Users\\Nika Kim\\Desktop\\faces\\Без названия.png"
+        newName = "C:\\Users\\Nika Kim\\Desktop\\faces\\K.png"
         self.lbl.pixmap().save(newName, 'png')
         analys(newName)
         self.close()
@@ -325,7 +324,6 @@ for face_landmarks in face_landmarks_list:
     ex = Widget()
     ex.show()
     sys.exit(app.exec_())
-    analys()
 
 
 
