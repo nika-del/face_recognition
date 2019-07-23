@@ -41,7 +41,6 @@ face_landmarks_list = face_recognition.face_landmarks(image)
 
 pil_image = Image.fromarray(image)
 
-@staticmethod
 def analys(imageForAnalys):
 
     red_pixels = set()

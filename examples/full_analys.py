@@ -51,13 +51,6 @@ def analys(imageForAnalys):
 
     redPoint = red_pixels.pop()
 
-    # print('left', face_landmarks['right_eye'])
-    # print('right', face_landmarks['right_eye'])
-    # print('left', face_landmarks['left_eye'])
-    # print('noise', face_landmarks['nose'])
-    # print('border', face_landmarks['border'])
-    # print('lips middle', face_landmarks['lips_middle'])
-
     # Calculate main items
     betweenEyes = face_landmarks['right_eye'][0][0] - face_landmarks['left_eye'][3][0]
     leftEyeLength = face_landmarks['left_eye'][3][0] - face_landmarks['left_eye'][0][0]

@@ -165,7 +165,7 @@ def _raw_face_landmarks(face_image, face_locations=None, model="large"):
     return [pose_predictor(face_image, face_location) for face_location in face_locations]
 
 
-def face_landmarks(face_image, face_locations=None, model="large"):
+def face_landmarks(face_image: object, face_locations: object = None, model: object = "large") -> object:
     """
     Given an image, returns a dict of face feature locations (eyes, nose, etc) for each face in the image
 
